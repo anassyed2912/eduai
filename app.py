@@ -83,12 +83,59 @@ from youtube_transcript_api import YouTubeTranscriptApi, NoTranscriptFound
 import google.generativeai as genai
 from googletrans import Translator, LANGUAGES
 from pptx import Presentation
-from pptx.util import Inches
 import tempfile
 import yt_dlp
 import logging
 import os
 import speech_recognition as sr
+from gtts import gTTS
+from PIL import Image, ImageDraw, ImageFont
+import moviepy.editor as mp
+from moviepy.editor import AudioFileClip
+
+def generate_video(summary):
+    text = summary
+
+    # Generate audio from text with a different language/voice
+    tts = gTTS(text, lang='ur')  # 'en-au' for Australian English accent
+    audio_path = 'output.mp3'
+    tts.save(audio_path)
+
+    # Verify audio file is created correctly
+    if not os.path.exists(audio_path):
+        return "Error generating audio file."
+
+    # Use the specified images
+    images = ['output/image.png']
+    def get_audio_duration_moviepy(audio_path):
+        audio = AudioFileClip(audio_path)
+        return audio.duration
+
+    # Set duration for each image (in seconds)
+    durations = [get_audio_duration_moviepy(audio_path)]  # Adjust the durations as needed
+
+    # Create video from images and audio
+    clips = []
+    for img, duration in zip(images, durations):
+        img_clip = mp.ImageClip(img).set_duration(duration)
+        clips.append(img_clip)
+
+    video = mp.concatenate_videoclips(clips, method="compose")
+
+    # Load the audio file
+    audio = mp.AudioFileClip(audio_path)
+
+    # Set the audio on the video
+    video = video.set_audio(audio)
+
+    video_path = 'output.mp4'
+    video.write_videofile(video_path, codec="libx264", fps=24, audio_codec="aac")
+
+    # return send_file(video_path, as_attachment=True)
+    return video_path
+
+
+
 
 def download_audio(youtube_url, output_path):
     ydl_opts = {
@@ -203,25 +250,7 @@ def generate_gemini_content(transcript_text, prompt, target_language_code, quest
         st.error(str(e))
         return None
 
-def create_presentation(content):
-    prs = Presentation()
-    slide_layout = prs.slide_layouts[1]  # Use the 'Title and Content' layout
 
-    # Add a slide with the title
-    slide = prs.slides.add_slide(slide_layout)
-    title = slide.shapes.title
-    title.text = "YouTube Video Summary"
-
-    # Add content to the slide
-    content_shape = slide.placeholders[1]
-    content_shape.text = content
-
-    return prs
-
-def save_presentation(prs):
-    with tempfile.NamedTemporaryFile(delete=False, suffix=".pptx") as tmpfile:
-        prs.save(tmpfile.name)
-        return tmpfile.name
 
 # Streamlit UI
 st.title("YouTube Transcript to Detailed Notes Converter")
@@ -241,14 +270,11 @@ if st.button("Get Detailed Notes"):
             if summary:
                 st.markdown("## Detailed Notes:")
                 st.write(summary)
-                
-                presentation = create_presentation(summary)
-                presentation_path = save_presentation(presentation)
-                
-                with open(presentation_path, "rb") as file:
-                    btn = st.download_button(
-                        label="Download Presentation",
-                        data=file,
-                        file_name="YouTube_Summary_Presentation.pptx",
-                        mime="application/vnd.openxmlformats-officedocument.presentationml.presentation"
-                    )
+                # if st.button("Generate Video"):
+                #     if summary:
+                st.info("Generating video... Please wait.")
+                video_path = generate_video(summary)
+                # create_video_from_summary(summary)
+                if video_path:
+                    st.success(f"Video generated successfully! [Download video]({video_path})")
+                    
