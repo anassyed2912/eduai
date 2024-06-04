@@ -3,3 +3,9 @@ streamlit
 google-generativeai
 python-dotenv
 pathlib
+googletrans
+yt_dlp
+logging
+speech_recognition
+gtts
+moviepy.editor
