@@ -6,6 +6,6 @@ pathlib
 googletrans
 yt_dlp
 logging
-speech_recognition
+SpeechRecognition
 gtts
-moviepy.editor
+moviepy
