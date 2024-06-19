@@ -1,0 +1,70 @@
+[theme]
+primaryColor = '#FF8C02'  # Bright Orange
+backgroundColor = '#F8F8F8'  # Off-White Background
+secondaryBackgroundColor = '#E0E0E0'  # Light Grey for secondary background
+textColor = '#333333'  # Dark Grey for better readability
+
+# Fonts
+font = "sans serif"
+
+# Additional settings for a more professional look
+[layout]
+wideMode = true
+sidebarWidth = 300
+
+[header]
+title = "YouTube Video Summarizer"
+subtitle = "Summarize, Translate, and Generate Videos Effortlessly"
+
+[footer]
+footerText = "© 2024 Your Company Name. All rights reserved."
+footerColor = "#FF8C02"  # Bright Orange to match the primary color
+
+[widgets]
+spacing = "10px"
+borderRadius = "5px"
+boxShadow = "0 4px 8px 0 rgba(0, 0, 0, 0.2)"
+
+# Custom CSS to enhance the look and feel
+[custom_css]
+css = """
+<style>
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.stButton>button {
+    background-color: #FF8C02;
+    color: white;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+}
+.stTextInput>div>input {
+    background-color: #FFFFFF;
+    color: #333333;
+    border: 1px solid #E0E0E0;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+.stSelectbox>div>div>div>div {
+    background-color: #FFFFFF;
+    color: #333333;
+    border: 1px solid #E0E0E0;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+.stMarkdown>div {
+    color: #333333;
+}
+footer {
+    color: #FF8C02;
+    font-size: 14px;
+    text-align: center;
+    margin-top: 20px;
+    padding: 20px 0;
+    background-color: #F8F8F8;
+}
+</style>
+"""
