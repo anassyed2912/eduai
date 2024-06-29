@@ -1,8 +1,15 @@
+# .streamlit/config.toml
+
+[server]
+headless = true
+port = 8501  # Replace with the port number you want to use locally
+enableCORS = false
+
 [theme]
 primaryColor = '#FF8C02'  # Bright Orange
-backgroundColor = '#F8F8F8'  # Off-White Background
-secondaryBackgroundColor = '#E0E0E0'  # Light Grey for secondary background
-textColor = '#333333'  # Dark Grey for better readability
+backgroundColor = '#000000'  # Black Background
+secondaryBackgroundColor = '#303030'  # Dark Grey for secondary background
+textColor = '#FFFFFF'  # White text for better readability
 
 # Fonts
 font = "sans serif"
@@ -31,6 +38,8 @@ css = """
 <style>
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #000000;
+    color: #FFFFFF;
 }
 .stButton>button {
     background-color: #FF8C02;
@@ -40,23 +49,23 @@ body {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
 }
 .stTextInput>div>input {
-    background-color: #FFFFFF;
-    color: #333333;
+    background-color: #333333;
+    color: #FFFFFF;
     border: 1px solid #E0E0E0;
     border-radius: 5px;
     padding: 10px;
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 .stSelectbox>div>div>div>div {
-    background-color: #FFFFFF;
-    color: #333333;
+    background-color: #333333;
+    color: #FFFFFF;
     border: 1px solid #E0E0E0;
     border-radius: 5px;
     padding: 10px;
     box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.1);
 }
 .stMarkdown>div {
-    color: #333333;
+    color: #FFFFFF;
 }
 footer {
     color: #FF8C02;
@@ -64,7 +73,7 @@ footer {
     text-align: center;
     margin-top: 20px;
     padding: 20px 0;
-    background-color: #F8F8F8;
+    background-color: #000000;
 }
 </style>
 """
