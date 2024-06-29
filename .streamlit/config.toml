@@ -3,7 +3,7 @@
 [server]
 headless = true
 port = 8501  # Replace with the port number you want to use locally
-enableCORS = false
+enableCORS = true
 
 [theme]
 primaryColor = '#FF8C02'  # Bright Orange
